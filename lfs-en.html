@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Life form simulation</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.min.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/rangeslider.min.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/lfs.min.css" media="screen" />
+	<script type="text/javascript" src="js/rangeslider.js"></script>
+	<script type="text/javascript" src="js/lfs-en.js"></script>
+  <script type="text/javascript" language="JavaScript">
+		var lfs;
+		var anzLFs = 6;
+		var lTime = 150;
+		window.onload = function () {
+			rangeslider();
+			lfs = new LFsimulation({ canvasDiv: 'canvasdiv', canvas: 'cnv' });
+			document.getElementById('b2').disabled = true;
+			document.getElementById('lfdisplay').innerHTML = 'Life forms: ' + anzLFs;
+		}
+    function toggleElement(element) {
+      var elem = document.getElementById(element);
+      elemdisplay = elem.style.display;
+      if (elemdisplay == '' || elemdisplay == 'none') {
+        elem.style.display = 'block';
+      } else {
+        elem.style.display = 'none';
+      }
+    }
+		function startSimulation() {
+			numLFs = parseInt(anzLFs);
+			lifeTime = parseInt(lTime);
+			tickTime = 50;
+			stopTime = 30;
+			arrayLF = [];
+			sStunde = 0;
+			sMinute = 0;
+			sSekunde = 0;
+			lfs.initSimulation();
+			document.getElementById('enddisplay').style.display = 'none';
+			document.getElementById('b1').disabled = true;
+			document.getElementById('b2').disabled = false;
+		}
+		function stopSimulation() {
+			clearInterval(simulation);
+			document.getElementById('b1').disabled = false;
+			document.getElementById('b2').disabled = true;
+		}
+		function updateS1() {
+			anzLFs = document.getElementById('s1').value;
+			document.getElementById('lfdisplay').innerHTML = 'Life forms: ' + anzLFs;
+		}
+		function updateS2() {
+			lTime = document.getElementById('s2').value;
+		}
+  </script>
+</head>
+<body>
+	<header>
+		<div class="logobox"><a href="http://www.rawilogic.de" target="_blank"><img class="logo" src="svg/rawilogic.svg" alt="Logo RaWiLogic"></a></div>
+	  <div id="menubox"><h5>TypeScript-Project Life form simulation</h5></div>
+	</header>
+  <div class="content">
+    <div id="canvasdiv">
+      <div id="enddisplay">
+        <h1>Simulation is ended.</h1>
+      </div>
+      <canvas id="cnv"></canvas>
+      <div id="infocontent">
+        <div class="closebutton" onclick="toggleElement('infocontent');"></div>
+        <h1>Life form simulation</h1>
+        <p>This simulation (like life) is not perfect because the life forms only follow a few rules. However, it is amazing that interactions still happen that I did not expect.
+        </p>
+        <h2>The objects of the simulation</h2>
+        <p><b>The life forms:</b> There are female (pink) and male life forms (blue). When the simulation starts, two female and two male life forms are generated; the sexes of the other forms of life are determined randomly.</p>
+        <p><b>The food sources:</b> They are evenly distributed over the simulation area and go through four growth stages (dark gray to light green), whereby only the last stage is edible.</p>
+        <p><b>The obstacles (light gray):</b> Like the food sources, they are evenly distributed over the simulation area.</p>
+        <h2>The rules</h2>
+        <ol>
+          <li>At the beginning of the simulation, each life form is assigned a random target.</li>
+          <li>On the way to their goal they have to avoid other forms of life, (immature) food sources and obstacles.</li>
+          <li>Should two forms of life collide with each other, one of the two remains disoriented and turns around itself.</li>
+          <li>Should a life form collide with an (immature) source of food or an obstacle, it goes back a little.</li>
+          <li>If the energy level of a life form falls below a certain value, it has to look for a source of food.</li>
+          <li>After a male life form has ingested food or achieved a random goal, he goes on a partner search. Female life forms head for a new random target after eating.</li>
+          <li>A pairing only takes place when the energy level of both life forms is above a certain value. The female life form then gives birth to at least one life form, the gender of which is determined randomly.</li>
+          <li>After mating, the parents and the newborn life form(s) are assigned random goals.</li>
+          <li>If the energy level or the lifetime falls below the value zero, the life form dies.</li>
+          <li>If only three life forms exist or if reproduction is no longer possible, the simulation is ended.</li>
+        </ol>
+      </div>
+      <div id="settings">
+        <div class="closebutton" onclick="toggleElement('settings');"></div>
+        <h1>Settings</h1>
+        <h2>Number of life forms</h2>
+        <div class="rangeSliderDiv">
+          <div class="range-slider">
+            <input class="range-slider__range" type="range" min="4" max="10" step="1" value="6" data-rangeSlider id="s1"
+              onmouseup="updateS1();">
+            <output></output>
+          </div>
+        </div>
+        <h2>Lifetime* (in seconds)</h2>
+        <div class="rangeSliderDiv">
+          <div class="range-slider">
+            <input class="range-slider__range" type="range" min="100" max="250" step="25" value="150" data-rangeSlider
+              id="s2" onmouseup="updateS2();">
+            <output></output>
+          </div>
+        </div>
+        <p><sup>* To make the simulation more real, a random value (maximum half of the lifetime) is added.</sup></p>
+      </div>
+    </div>
+    <div class="display">Simulation duration:<div id="timedisplay">00:00:00</div>/ <div id="lfdisplay"></div></div>
+    <div class="buttondiv">
+      <input id="bi" class="button01" type="button" value="Info" onclick="toggleElement('infocontent');">
+      <input id="bs" class="button01" type="button" value="Settings" onclick="toggleElement('settings');">
+      <input id="b1" class="button01" type="button" value="Start Simulation" onclick="startSimulation();">
+      <input id="b2" class="button01" type="button" value="Stop Simulation" onclick="stopSimulation();">
+    </div>
+  </div>
+</body>
+</html>

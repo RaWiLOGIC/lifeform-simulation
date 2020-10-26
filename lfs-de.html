@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="language" content="de">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lebensform-Simulation</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.min.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/rangeslider.min.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/lfs.min.css" media="screen" />
+	<script type="text/javascript" src="js/rangeslider.js"></script>
+	<script type="text/javascript" src="js/lfs-de.js"></script>
+  <script type="text/javascript" language="JavaScript">
+		var lfs;
+		var anzLFs = 6;
+		var lTime = 150;
+		window.onload = function () {
+			rangeslider();
+			lfs = new LFsimulation({ canvasDiv: 'canvasdiv', canvas: 'cnv' });
+			document.getElementById('b2').disabled = true;
+			document.getElementById('lfdisplay').innerHTML = 'Lebensformen: ' + anzLFs;
+		}
+    function toggleElement(element) {
+      var elem = document.getElementById(element);
+      elemdisplay = elem.style.display;
+      if (elemdisplay == '' || elemdisplay == 'none') {
+        elem.style.display = 'block';
+      } else {
+        elem.style.display = 'none';
+      }
+    }
+		function startSimulation() {
+			numLFs = parseInt(anzLFs);
+			lifeTime = parseInt(lTime);
+			tickTime = 50;
+			stopTime = 30;
+			arrayLF = [];
+			sStunde = 0;
+			sMinute = 0;
+			sSekunde = 0;
+			lfs.initSimulation();
+			document.getElementById('enddisplay').style.display = 'none';
+			document.getElementById('b1').disabled = true;
+			document.getElementById('b2').disabled = false;
+		}
+		function stopSimulation() {
+			clearInterval(simulation);
+			document.getElementById('b1').disabled = false;
+			document.getElementById('b2').disabled = true;
+		}
+		function updateS1() {
+			anzLFs = document.getElementById('s1').value;
+			document.getElementById('lfdisplay').innerHTML = 'Lebensformen: ' + anzLFs;
+		}
+		function updateS2() {
+			lTime = document.getElementById('s2').value;
+		}
+  </script>
+</head>
+<body>
+	<header>
+		<div class="logobox"><a href="http://www.rawilogic.de" target="_blank"><img class="logo" src="svg/rawilogic.svg" alt="Logo RaWiLogic"></a></div>
+	  <div id="menubox"><h5>TypeScript-Projekt Lebensform-Simulation</h5></div>
+	</header>
+  <div class="content">
+    <div id="canvasdiv">
+      <div id="enddisplay">
+        <h1>Simulation ist beended.</h1>
+      </div>
+      <canvas id="cnv"></canvas>
+      <div id="infocontent">
+        <div class="closebutton" onclick="toggleElement('infocontent');"></div>
+        <h1>Lebensform-Simulation</h1>
+        <p>Diese Simulation ist (wie auch das Leben) nicht perfekt, da die Lebensformen nur wenigen Regeln folgen. Es
+          ist jedoch erstaunlich, dass trotzdem Interaktionen geschehen, die ich nicht erwartet h&auml;tte.</p>
+        <h2>Die Objekte der Simulation</h2>
+        <p><b>Die Lebensformen:</b> Es gibt weibliche (rosa) und m&auml;nnliche Lebensformen (blau). Beim Start der
+          Simulation werden jeweils zwei weibliche und zwei m&auml;nnliche Lebensformen erzeugt; die Geschlechter der
+          weiteren Lebensformen werden zuf&auml;llig bestimmt.</p>
+        <p><b>Die Nahrungsquellen:</b> Sie sind gleichm&auml;&szlig;ig über die Simulationsfl&auml;che verteilt und
+          durchlaufen vier Wachstumsstadien (dunkelgrau bis hellgr&uuml;n), wobei nur das letzte Stadium genie&szlig;bar
+          ist.</p>
+        <p><b>Die Hindernisse (hellgrau):</b> Wie die Nahrungsquellen sind sie gleichm&auml;&szlig;ig über die
+          Simulationsfl&auml;che verteilt.</p>
+        <h2>Die Regeln</h2>
+        <ol>
+          <li>Zu Beginn der Simulation wird jeder Lebensform ein zuf&auml;lliges Ziel zugewiesen.</li>
+          <li>Auf dem Weg zum Ziel m&uuml;ssen sie anderen Lebensformen, (unreifen) Nahrungsquellen und Hindernissen
+            ausweichen.</li>
+          <li>Sollten trotzdem zwei Lebensformen miteinander kollidieren bleibt eine der beiden orientierungslos stehen
+            und dreht sich um sich selbst.</li>
+          <li>Sollte eine Lebensform mit einer (unreifen) Nahrungsquelle oder einem Hindernis kollidieren geht sie ein
+            St&uuml;ck zur&uuml;ck.</li>
+          <li>Unterschreitet das Energie-Level einer Lebensform einen bestimmten Wert muss sie eine Nahrungsquelle
+            suchen.</li>
+          <li>Nachdem eine m&auml;nnliche Lebensform Nahrung aufgenommen oder ein Zufallsziel erreicht hat geht sie auf
+            Partnersuche. Weibliche Lebensformen steuern nach der Nahrungsaufnahme ein neues Zufallsziel an.</li>
+          <li>Eine Paarung findet nur statt, wenn das Energie-Level beider Lebensformen über einem bestimmten Wert
+            liegt. Die weibliche Lebensform gebiert dann mindestens eine Lebensform, deren Geschlecht zuf&auml;llig
+            bestimmt wird.</li>
+          <li>Nach der Paarung bekommen die Eltern und die neu geborene(n) Lebensform(en) zuf&auml;llige Ziele
+            zugewiesen.</li>
+          <li>Unterschreitet das Energie-Level oder die Lebenszeit den Wert Null stirbt die Lebensform.</li>
+          <li>Existieren nur noch drei Lebensformen oder ist eine Vermehrung nicht mehr m&ouml;glich wird die Simulation
+            beendet.</li>
+        </ol>
+      </div>
+      <div id="settings">
+        <div class="closebutton" onclick="toggleElement('settings');"></div>
+        <h1>Einstellungen</h1>
+        <h2>Anzahl der Lebensformen</h2>
+        <div class="rangeSliderDiv">
+          <div class="range-slider">
+            <input class="range-slider__range" type="range" min="4" max="10" step="1" value="6" data-rangeSlider id="s1"
+              onmouseup="updateS1();">
+            <output></output>
+          </div>
+        </div>
+        <h2>Lebenszeit* (in Sekunden)</h2>
+        <div class="rangeSliderDiv">
+          <div class="range-slider">
+            <input class="range-slider__range" type="range" min="100" max="250" step="25" value="150" data-rangeSlider
+              id="s2" onmouseup="updateS2();">
+            <output></output>
+          </div>
+        </div>
+        <p><sup>* Um die Simulation realer zu gestalten wird ein Zufallswert (maximal die H&auml;lfte der Lebenszeit)
+          addiert.</sup></p>
+    </div>
+    </div>
+    <div class="display">Simulationsdauer:<div id="timedisplay">00:00:00</div>/ <div id="lfdisplay"></div></div>
+    <div class="buttondiv">
+      <input id="bi" class="button01" type="button" value="Info" onclick="toggleElement('infocontent');">
+      <input id="bs" class="button01" type="button" value="Einstellungen" onclick="toggleElement('settings');">
+      <input id="b1" class="button01" type="button" value="Simulation starten" onclick="startSimulation();">
+      <input id="b2" class="button01" type="button" value="Simulation stoppen" onclick="stopSimulation();">
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+/* Styles Lifeform-Simulation */
+@import '../_import/vars';
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+#canvasdiv {
+  width: 922px;
+  height: 502px;
+  margin: 2.5rem auto 1.5rem auto;
+  border: 1px solid $color-border;
+  position: relative;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#cnv {
+  width: 920px;
+  height: 500px;
+}
+#enddisplay {
+  width: 100%;
+  height: 2rem;
+  z-index: 2;
+  display: none;
+  position: absolute;
+  h1 {
+    font-size: 1.25rem;
+    text-align: center;
+    color: #fd8f00;
+  }  
+}
+#timedisplay {
+  margin: 0px 10px 0px 10px;
+}
+#lfdisplay {
+  margin: 0px 10px 0px 10px;
+}
+.display {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  margin: 10px auto 10px auto;
+  font-size: 1rem;
+  color: $color-plaintxt;
+  text-align: center;
+}
+#settings {
+  width: 300px;
+  height: auto;
+  position: absolute;
+  top: 120px;
+  left: 310px;
+  padding: 0px 0px 12px 0px;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  z-index: 3;
+  cursor: default;
+  display: none;
+}
+#infocontent {
+  width: 924px;
+  height: auto;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  padding: 0px 0px 12px 0px;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  z-index: 3;
+  cursor: default;
+  display: none;
+}
+#infocontent h1,
+#settings h1 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: left;
+  margin: 5px 0px 0px 18px;
+  border: none;
+}
+#infocontent h2,
+#settings h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  margin: 12px 0px 6px 18px;
+  border: none;
+}
+#infocontent p,
+#settings p {
+  font-size: 0.9rem;
+  text-align: left;
+  margin: 5px 10px 0px 18px;
+  width: 96%;
+}
+#settings u {
+  font-size: 0.75rem;
+  text-align: left;
+  margin: 5px 10px 0px 18px;
+  padding: 0 0 0 18px;
+  text-indent: 0;
+  text-decoration: none;
+  width: 96%;
+}
+.openbutton {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  float: right;
+  top: 5px;
+  right: 8px;
+  background-image: url("../svg/info.svg");
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 0px 0px;
+  cursor: pointer;
+}
+.closebutton {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  float: right;
+  top: 6px;
+  right: 8px;
+  background-image: url("../svg/close.svg");
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 0px 0px;
+  cursor: pointer;
+}
+ul {
+  list-style-type: disc;
+  margin: 6px 10px 0px 20px;
+  padding: 0;
+  list-style-position: outside;
+  li {
+    font-size: 0.9rem;
+    text-align: left;
+    text-indent: 0px;
+    margin: 6px 0px 0px 3px;
+    width: 96%;
+  }  
+}
+ol {
+  list-style-type: decimal;
+  margin: 6px 10px 0px 42px;
+  padding: 0;
+  list-style-position: inside;
+  li {
+    font-size: 0.9rem;
+    text-align: left;
+    text-indent: -22px;
+    margin: 6px 0px 0px 3px;
+    width: 96%;
+  }  
+}
+// RangeSlider-Styles
+.rangeSliderDiv {
+  width: 270px;
+  height: 28px;
+  border: 1px solid $color-rs-border;
+	border-radius: 5px;
+  margin: 10px auto 20px auto;
+  position: relative;
+}
+.range-slider {
+	width: 90%;
+	height: 24px;
+	margin: 0 auto;
+	position: relative;
+}
+.range-slider__range {
+	width: 80%;
+	height: 6px;
+	appearance: none;
+	border-radius: 3px;
+	background: $color-rs-rangebg;
+	outline: none;
+	padding: 0;
+	margin: 0;
+}
+.range-slider__range::-webkit-slider-thumb {
+	appearance: none;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: $color-rs-thumb;
+	cursor: pointer;
+	transition: background .15s ease-in-out;
+}
+.range-slider__range::-webkit-slider-thumb:hover {
+	background: $color-rs-thumb-hover;
+}
+.range-slider__range:active::-webkit-slider-thumb {
+	background: $color-rs-thumb-hover;
+}
+.range-slider__range::-moz-range {
+	position: relative;
+	top: -2px;
+}
+.range-slider__range::-moz-range-thumb {
+	width: 12px;
+	height: 12px;
+	border: 0;
+	border-radius: 50%;
+	background: $color-rs-thumb;
+	cursor: pointer;
+	transition: background .15s ease-in-out;
+}
+.range-slider__range::-moz-range-thumb:hover {
+	background: $color-rs-thumb-hover;
+}
+.range-slider__range:active::-moz-range-thumb {
+	background: $color-rs-thumb-hover;
+}
+::-moz-range-track {
+	background: $color-rs-rangebg;
+	border: 0;
+}
+input::-moz-focus-inner, input::-moz-focus-outer {
+	border: 0;
+}
+output {
+	width: 18%;
+  float: right;
+	font-size: 0.8rem;
+	line-height: 1.4rem;
+	text-align: center;
+	color: $color-plaintxt;
+	position: relative;
+	top: 1px;
+}
+@supports (-ms-ime-align: auto) {
+  .range-slider {
+		top: -1px;
+	}
+	.range-slider__range {
+		position: absolute;
+		top: 9px;
+		left: 0px;
+	}
+}

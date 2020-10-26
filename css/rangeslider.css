@@ -1,0 +1,117 @@
+/* Styles Rangeslider */
+/* RaWiLOGIC Variablen-Definition DarkTheme */
+/* Fonts */
+/* Farben */
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.rangeSliderDiv {
+  width: 250px;
+  height: 24px;
+  border: 1px solid #444444;
+  border-radius: 5px;
+  margin: 10px auto 20px auto;
+  position: relative;
+}
+
+.range-slider {
+  width: 90%;
+  height: 24px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.range-slider__range {
+  width: 80%;
+  height: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border-radius: 3px;
+  background: #555555;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+.range-slider__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #2981c4;
+  cursor: pointer;
+  -webkit-transition: background .15s ease-in-out;
+  transition: background .15s ease-in-out;
+}
+
+.range-slider__range::-webkit-slider-thumb:hover {
+  background: #fd8f00;
+}
+
+.range-slider__range:active::-webkit-slider-thumb {
+  background: #fd8f00;
+}
+
+.range-slider__range::-moz-range {
+  position: relative;
+  top: -2px;
+}
+
+.range-slider__range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: #2981c4;
+  cursor: pointer;
+  -webkit-transition: background .15s ease-in-out;
+  transition: background .15s ease-in-out;
+}
+
+.range-slider__range::-moz-range-thumb:hover {
+  background: #fd8f00;
+}
+
+.range-slider__range:active::-moz-range-thumb {
+  background: #fd8f00;
+}
+
+::-moz-range-track {
+  background: #555555;
+  border: 0;
+}
+
+input::-moz-focus-inner, input::-moz-focus-outer {
+  border: 0;
+}
+
+output {
+  width: 18%;
+  float: right;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  color: #cccccc;
+  position: relative;
+  top: 1px;
+}
+
+@supports (-ms-ime-align: auto) {
+  .range-slider {
+    top: -1px;
+  }
+  .range-slider__range {
+    position: absolute;
+    top: 9px;
+    left: 0px;
+  }
+}
